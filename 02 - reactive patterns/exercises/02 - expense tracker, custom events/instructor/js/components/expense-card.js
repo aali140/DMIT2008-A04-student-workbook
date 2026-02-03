@@ -85,9 +85,26 @@ class ExpenseCard extends HTMLElement {
     // We'll listen for .edit-btn and .delete-btn being clicked, and fire custom events.
     // I recommend adding event listeners only when the component attaches to the DOM, *rather than* in the constructor.
 
-    // 1. edit button clicked event
+    // 1. delete button clicked event
+    this.shadowRoot.querySelector('.delete-btn').addEventListener(
+      "clicked",
+      () => { // callback function is an anonymous arrow function
+        const deleteEvent = new CustomEvent(
+          "expense-delete",  // first term:  event's name
+          {                  // second term: event info
+            detail: { id: this.id },   // detail: the payload/data/message that is passed with the event
+            bubbles: true,             // can propagate upwards through DOM, rather than direct sender/receiver info
+            compose: true,             // event can cross shadow DOM boundary
+          }
+        );
 
-    // 2. delete button clicked event
+        this.dispatchEvent(deleteEvent);
+        // console.log(deleteEvent);
+      }
+    )
+
+    // 2. edit button clicked event
+
   }
 }
 

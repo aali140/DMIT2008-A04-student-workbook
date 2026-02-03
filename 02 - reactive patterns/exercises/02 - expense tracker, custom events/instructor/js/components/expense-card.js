@@ -1,5 +1,5 @@
 class ExpenseCard extends HTMLElement {
-  constructor() {
+  constructor() {  // is called when an instance of this class/component is created
     super();
     this.attachShadow({ mode: "open" });
 
@@ -70,7 +70,8 @@ class ExpenseCard extends HTMLElement {
         this.shadowRoot.appendChild(style);
   }
 
-  connectedCallback() {
+  connectedCallback() { // is called when component instance is attached to DOM
+    // populating default values if any are missing
     this.shadowRoot.querySelector(".title").textContent =
       this.getAttribute("title") || "No title";
     this.shadowRoot.querySelector(".category").textContent =
@@ -80,6 +81,13 @@ class ExpenseCard extends HTMLElement {
     this.shadowRoot.querySelector(".amount").textContent =
       "$" + parseFloat(this.getAttribute("amount") || 0).toFixed(2);
     this.shadowRoot.querySelector(".card").setAttribute("id", Number(this.getAttribute("id")) || new Date().getTime());
+
+    // We'll listen for .edit-btn and .delete-btn being clicked, and fire custom events.
+    // I recommend adding event listeners only when the component attaches to the DOM, *rather than* in the constructor.
+
+    // 1. edit button clicked event
+
+    // 2. delete button clicked event
   }
 }
 
